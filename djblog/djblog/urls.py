@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-
 admin.site.site_header = 'Тот еще секс'
 admin.site.site_title = 'Тот еще секс'
 admin.site.index_title = 'Тот еще секс'
@@ -24,5 +23,5 @@ admin.site.index_title = 'Тот еще секс'
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-    path('posts/', include('posts.urls')),
+    path('posts/', include('posts.urls', namespace='posts')),
 ]
