@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>{{ title }}</h1>
-<a href="{% url 'posts:create' %}"><i>Create a new post</i></a>
-{% for obj in  object_list %}
-    <br>
-    <a href="{% url 'posts:detail' obj.id %}">{{ obj.title }}</a><br>
-    {{ obj.id }}
-    <br>
-    {{ obj.title }}
-    <br>
-    {{ obj.content }}
-    <br>
-    {{ obj.updated }}
-    <br>
-    {{ obj.timestamp }}
-    <br>
-    <a href="{% url 'posts:edit' id=obj.id %}">Edit post</a>
-    <br>
-{% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>{{ title }}</h1>
+    <a href="{% url 'posts:create' %}"><i>Create a new post</i></a>
+    {% for obj in  object_list %}
+        <br>
+        <a href="{% url 'posts:detail' obj.id %}">{{ obj.title }}</a><br>
+        {{ obj.id }}
+        <br>
+        {{ obj.title }}
+        <br>
+        {{ obj.content }}
+        <br>
+        {{ obj.updated }}
+        <br>
+        {{ obj.timestamp }}
+        <br>
+        <a href="{% url 'posts:delete' id=obj.id %}">Delete post</a>
+        <a href="{% url 'posts:edit' id=obj.id %}">Edit post</a>
+        <br>
+    {% endfor %}
+
+{% endblock content %}

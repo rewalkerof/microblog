@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block title %}{{ block.super }} | {{ instance.title }}{% endblock title %}
 
-{{ messages }}
-<h1><b>{{ title }}</b></h1>
-<div class="container">
-    <p>{{ instance.id }}</p>
-    <p>{{ instance.title }}</p>
-    <p>{{ instance.content }}</p>
-    <p>{{ instance.updated }}</p>
-    <p>{{ instance.timestamp }}</p>
-    <a href="{{ instance.get_absolute_url }}">Return</a>
-</div>
-</body>
-</html>
+{% block content %}
+
+    <h1><b>{{ title }}</b></h1>
+    <div class="container">
+        <p>{{ instance.id }}</p>
+        <p>{{ instance.title }}</p>
+        <p>{{ instance.content }}</p>
+        <p>{{ instance.updated }}</p>
+        <p>{{ instance.timestamp }}</p>
+        <a href="{{ instance.get_absolute_url }}">Return</a>
+    </div>
+
+{% endblock content %}
