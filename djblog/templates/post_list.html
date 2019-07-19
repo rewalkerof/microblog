@@ -8,7 +8,6 @@
 <h1>{{ title }}</h1>
 {% for obj in  object_list %}
     <br>
-    {% url 'posts:detail' id=obj.id %}
     <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a><br>
     {{ obj.id }}
     <br>
@@ -19,6 +18,8 @@
     {{ obj.updated }}
     <br>
     {{ obj.timestamp }}
+    <br>
+    <a href="{% url 'posts:edit' id=obj.id %}">Edit post</a>
     <br>
 {% endfor %}
 </body>
