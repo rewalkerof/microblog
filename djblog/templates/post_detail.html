@@ -5,15 +5,17 @@
     <title>Title</title>
 </head>
 <body>
+
+
+{{ messages }}
 <h1><b>{{ title }}</b></h1>
-{{ instance.id }}
-<br>
-{{ instance.title }}
-<br>
-{{ instance.content }}
-<br>
-{{ instance.updated }}
-<br>
-{{ instance.timestamp }}
+<div class="container">
+    <p>{{ instance.id }}</p>
+    <p>{{ instance.title }}</p>
+    <p>{{ instance.content }}</p>
+    <p>{{ instance.updated }}</p>
+    <p>{{ instance.timestamp }}</p>
+    <a href="{{ instance.get_absolute_url }}">Return</a>
+</div>
 </body>
 </html>

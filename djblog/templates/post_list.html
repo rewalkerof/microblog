@@ -6,9 +6,10 @@
 </head>
 <body>
 <h1>{{ title }}</h1>
+<a href="{% url 'posts:create' %}"><i>Create a new post</i></a>
 {% for obj in  object_list %}
     <br>
-    <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a><br>
+    <a href="{% url 'posts:detail' obj.id %}">{{ obj.title }}</a><br>
     {{ obj.id }}
     <br>
     {{ obj.title }}

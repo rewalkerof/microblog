@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
@@ -6,13 +7,18 @@ from .models import Post
 
 
 def post_create(request):
-    form = PostForm(request.POST or None)
+    storage = messages.get_messages(request)
+    form = PostForm(data=request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        messages.success(request, 'Post successfully created!')
         return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request, 'Not successfully created!')
     context = {
-        'form': form
+        'form': form,
+        'messages': storage
     }
     return render(request, 'post_form.html', context)
 
@@ -40,7 +46,10 @@ def post_edit(request, id=None):
     form = PostForm(request.POST or None, instance=instance)
     if form.is_valid():
         instance.save()
+        messages.success(request, 'Post successfully edited!')
         return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.success(request, 'Not successfully edited!')
     context = {
         'title': instance.title,
         'instance': instance,
