@@ -9,7 +9,7 @@ python3.6, python3.6-dev, virtualenv
  
 ## Setup virtual environment
 
-###Creating virtual environment, after cloning:
+### Creating virtual environment, after cloning:
 
 ```
 - cd blog
