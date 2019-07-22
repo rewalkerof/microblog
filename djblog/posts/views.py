@@ -17,6 +17,7 @@ def post_create(request):
         messages.error(request, 'Not successfully created!')
     context = {
         'form': form,
+        'title': 'Create post',
         'messages': storage
     }
     return render(request, 'post_form.html', context)

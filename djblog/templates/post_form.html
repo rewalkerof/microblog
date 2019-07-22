@@ -2,12 +2,11 @@
 {% block title %}Create post{% endblock title %}
 
 {% block content %}
-    <h1>Form</h1>
+    <h1>{{ title }}</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        {{ instance.title }}
-        <input type="submit" value="Create post">
+        <button class="btn btn-success">Create</button>
         <a href="{% url 'posts:list' %}" class="btn btn-default">Cancel</a>
     </form>
 
