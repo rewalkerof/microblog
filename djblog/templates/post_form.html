@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}{{ instance.title }}{% endblock title %}
+{% block title %}Create post{% endblock title %}
 
 {% block content %}
     <h1>Form</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        {{ instance.title }}
         <input type="submit" value="Create post">
+        <a href="{% url 'posts:list' %}" class="btn btn-default">Cancel</a>
     </form>
 
 {% endblock content %}

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-Ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONbE = 'UTC'
 
 USE_I18N = True
 
@@ -121,4 +122,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT = (os.path.join(os.path.dirname(BASE_DIR), 'staticfiles'))
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
