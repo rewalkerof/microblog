@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
@@ -34,9 +35,18 @@ def post_detail(request, id=None):
 
 
 def post_list(request):
-    queryset = Post.objects.all()
+    list_queryset = Post.objects.all()
+    paginator = Paginator(list_queryset, 6)
+    page = request.GET.get('page')
+    try:
+        lists = paginator.page(page)
+    except PageNotAnInteger:
+        lists = paginator.page(1)
+    except EmptyPage:
+        lists = paginator.page(paginator.num_pages)
+
     context = {
-        'object_list': queryset,
+        'object_list': lists,
         'title': 'List of posts'
     }
     return render(request, 'post_list.html', context)
@@ -64,6 +74,3 @@ def post_delete(request, id=None):
     instance.delete()
     messages.info(request, 'Post succesfully deleted')
     return redirect(instance.get_absolute_url())
-
-
-

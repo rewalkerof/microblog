@@ -20,3 +20,4 @@ class Post(models.Model):
         db_table = 'post'
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+        ordering = ['-timestamp']
