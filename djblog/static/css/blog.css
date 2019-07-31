@@ -1,0 +1,44 @@
+.navbar-blog {
+    overflow: hidden;
+    border-bottom: 1px solid gray;
+}
+
+.navbar-blog a {
+    font-size: 17px;
+    border-bottom: 2px solid transparent;
+}
+
+.navbar-blog a:hover {
+    border-bottom: 2px solid #000000;
+}
+
+/*.navbar-blog a.active {*/
+/*    border-bottom: 3px solid #8d8897;*/
+/*}*/
+
+.title-blog {
+    color: #a1a1a1;
+}
+
+.subtitle-blog {
+    color: #4e555b;
+}
+
+.subtitle-blog:visited {
+    color: #4e555b;
+}
+
+.row-padded {
+    padding: 35px;
+    background-color: #F7F7F7;
+    border: 1px solid #DDD;
+}
+
+.container-padded {
+    background-color: #F7F7F7;
+    border: 1px solid #DDD;
+}
+
+.blog-subtitle {
+
+}

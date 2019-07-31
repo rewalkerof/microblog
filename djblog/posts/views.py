@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
 
 from .forms import PostForm
 from .models import Post
@@ -63,3 +64,6 @@ def post_delete(request, id=None):
     instance.delete()
     messages.info(request, 'Post succesfully deleted')
     return redirect(instance.get_absolute_url())
+
+
+

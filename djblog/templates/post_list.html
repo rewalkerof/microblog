@@ -1,34 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <div class="col-md-10 border">
-        <div class="row">
-            {#        <a href="{% url 'posts:create' %}"><h2><i>Create a new post</i></h2></a>#}
-            {% for obj in  object_list %}
-                <div class="col-md-6 border">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3><a href="{% url 'posts:detail' obj.id %}">{{ obj.title }}</a>
-
-                            </h3>
-                            <small>{{ obj.timestamp|timesince }} ago</small>
-
-                            <p>{{ obj.id }}</p>
-                            <p>{{ obj.title }}</p>
-                            <p>{{ obj.content|linebreaks|truncatechars:60 }}</p>
-                            <p>{{ obj.updated }}</p>
-                            <div class="row ">
-                                <p><a href="{% url 'posts:delete' id=obj.id %}" class="btn btn-danger" role="button">Delete
-                                    post</a></p>
-                                <p><a href="{% url 'posts:edit' id=obj.id %}" class="btn btn-info offset-3">Edit
-                                    post</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+    <h1 class="modal-title title-blog">{{ title }}</h1>
+    <div class="row">
+        {% for obj in  object_list %}
+            <div class="col-md-6 border">
+                <h3><a href="{% url 'posts:detail' obj.id %}"
+                       class="subtitle-blog">{{ obj.title }}</a></h3>
+                <small>{{ obj.timestamp|timesince }} ago</small>
+                <p>{{ obj.id }}</p>
+                <p>{{ obj.title }}</p>
+                <p>{{ obj.content|linebreaks|truncatechars:60 }}</p>
+                <p>{{ obj.updated }}</p>
+                <div class="row ">
+                    <p><a href="{% url 'posts:delete' id=obj.id %}" class="btn btn-danger" role="button">Delete
+                        post</a></p>
+                    <p><a href="{% url 'posts:edit' id=obj.id %}" class="btn bg-secondary text-light">Edit
+                        post</a>
+                    </p>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+            {#            {% cycle "" "<div class='col-lg-12'><hr/></div></div><div class='row'>" %}#}
+        {% endfor %}
     </div>
 {% endblock content %}
