@@ -109,4 +109,6 @@ djblog/djblog/staticfiles/
 
 staticfiles/
 
-commands\.txt
+useful_commands.txt
+mediafiles
+**/migrations/*
