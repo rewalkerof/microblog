@@ -2,27 +2,46 @@
 
 {% block content %}
     <h1 class="modal-title title-blog">{{ title }}</h1>
+    {#    <div class="row">#}
+    {#        <div class="col-12 col-lg-8 border">.col-12 .col-md-8</div>#}
+    {#        <div class="col-6 col-lg-4 border">.col-6 .col-md-4</div>#}
+    {#    </div>#}
     <div class="row">
-        {% for obj in  object_list %}
-            <div class="col-md-6 border">
-                <h3><a href="{% url 'posts:detail' obj.id %}"
-                       class="subtitle-blog">{{ obj.title }}</a></h3>
-                <small>{{ obj.timestamp|timesince }} ago</small>
-                <p>{{ obj.id }}</p>
-                <p>{{ obj.title }}</p>
-                <p>{{ obj.content|linebreaks|truncatechars:60 }}</p>
-                <p>{{ obj.updated }}</p>
-                <div class="row ">
-                    <p><a href="{% url 'posts:delete' id=obj.id %}" class="btn btn-danger" role="button">Delete
-                        post</a></p>
-                    <p><a href="{% url 'posts:edit' id=obj.id %}" class="btn bg-secondary text-light">Edit
-                        post</a>
-                    </p>
+        <div class="col-lg-12">
+            {% for obj in  object_list %}
+                <div class="row">
+                    <div class="col-lg-6 border">
+                        <div class="row">
+                            <div class="col-6 col-lg-8">
+                                <h3><a href="{% url 'posts:detail' obj.id %}"
+                                       class="subtitle-blog">{{ obj.title }}</a></h3>
+                            </div>
+                            <div class="col-4 ml-auto  ">
+                                <small>{{ obj.timestamp|timesince }} ago</small>
+                            </div>
+                        </div>
+                        <p>{{ obj.content| linebreaksbr| safe }}</p>
+                        <div class="row mt-5">
+                            <p class="col-auto mr-auto"><a href="{% url 'posts:delete' id=obj.id %}" class="btn btn-danger" role="button">Delete
+                                post</a></p>
+                            <p class="col-auto"><a href="{% url 'posts:edit' id=obj.id %}" class="btn bg-secondary text-light col-lg-offset-5">Edit
+                                post</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col col-lg-6 border">
+                        {% if obj.image %}
+                            <div class="row">
+                                {#                                <img src="{{ obj.image.url }}" alt="" width="500" height="300"  class="img-responsive bg-images-blog">#}
+                            </div>
+                        {% endif %}
+
+                    </div>
                 </div>
-            </div>
-            {#            {% cycle "" "<div class='col-lg-12'><hr/></div></div><div class='row'>" %}#}
-        {% endfor %}
-        <div class="pagination">
+
+                {#            {% cycle "" "<div class='col-lg-12'><hr/></div></div><div class='row'>" %}#}
+            {% endfor %}
+            <div class="pagination">
             <span class="step-links">
                 {% if object_list.has_previous %}
                     <a href="?page={{ object_list.previous_page_number }}">previous</a>
@@ -36,6 +55,7 @@
                     <a href="?page={{ object_list.next_page_number }}">next</a>
                 {% endif %}
             </span>
+            </div>
         </div>
     </div>
 {% endblock content %}

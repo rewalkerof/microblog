@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
 
 from .forms import PostForm
 from .models import Post
@@ -9,7 +8,7 @@ from .models import Post
 
 def post_create(request):
     storage = messages.get_messages(request)
-    form = PostForm(data=request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
@@ -54,7 +53,7 @@ def post_list(request):
 
 def post_edit(request, id=None):
     instance = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST or None, instance=instance)
+    form = PostForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
         instance.save()
         messages.success(request, 'Post successfully edited!')
