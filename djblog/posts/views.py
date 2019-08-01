@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import PostForm
@@ -7,6 +8,8 @@ from .models import Post
 
 
 def post_create(request):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     storage = messages.get_messages(request)
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -25,6 +28,8 @@ def post_create(request):
 
 
 def post_detail(request, id=None):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     instance = get_object_or_404(Post, id=id)
     context = {
         'instance': instance,
@@ -34,6 +39,8 @@ def post_detail(request, id=None):
 
 
 def post_list(request):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     list_queryset = Post.objects.all()
     paginator = Paginator(list_queryset, 6)
     page = request.GET.get('page')
@@ -52,6 +59,8 @@ def post_list(request):
 
 
 def post_edit(request, id=None):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     instance = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
