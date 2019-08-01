@@ -4,15 +4,15 @@
 
 {% block content %}
     <h1 class="modal-title my-title">{{ title }}</h1>
+    {% if instance.user %}
+        <p><b>Author: </b> {{ instance.get_full_name | default:instance.user.username }}</p>
+    {% endif %}
     <small>{{ instance.timestamp }}</small>
     </h1>
-    <p>{{ instance.id }}</p>
     {% if instance.image %}
         <p><img src="{{ instance.image.url }}" alt="" class="img-responsive"></p>
     {% endif %}
-    <p>{{ instance.title }}</p>
     <p>{{ instance.content }}</p>
-    <p>{{ instance.updated }}</p>
     <a href="{{ instance.get_absolute_url }}">Return</a>
     <button type="button" class="btn btn-primary">Primary</button>
 {% endblock content %}

@@ -15,16 +15,22 @@
                             <div class="col-6 col-lg-8">
                                 <h3><a href="{% url 'posts:detail' obj.id %}"
                                        class="subtitle-blog">{{ obj.title }}</a></h3>
+                                {% if obj.user %}
+                                    <p><b>Author: </b> {{ obj.get_full_name | default:obj.user.username }}</p>
+                                {% endif %}
                             </div>
+
                             <div class="col-4 ml-auto  ">
                                 <small>{{ obj.timestamp|timesince }} ago</small>
                             </div>
                         </div>
                         <p>{{ obj.content| linebreaksbr| safe }}</p>
                         <div class="row mt-5">
-                            <p class="col-auto mr-auto"><a href="{% url 'posts:delete' id=obj.id %}" class="btn btn-danger" role="button">Delete
+                            <p class="col-auto mr-auto"><a href="{% url 'posts:delete' id=obj.id %}"
+                                                           class="btn btn-danger" role="button">Delete
                                 post</a></p>
-                            <p class="col-auto"><a href="{% url 'posts:edit' id=obj.id %}" class="btn bg-secondary text-light col-lg-offset-5">Edit
+                            <p class="col-auto"><a href="{% url 'posts:edit' id=obj.id %}"
+                                                   class="btn bg-secondary text-light col-lg-offset-5">Edit
                                 post</a>
                             </p>
                         </div>
@@ -32,8 +38,10 @@
                     <div class="col col-lg-6 border">
                         {% if obj.image %}
                             <div class="row">
-                                {#                                <img src="{{ obj.image.url }}" alt="" width="500" height="300"  class="img-responsive bg-images-blog">#}
+{#                                <img src="{{ obj.image.url }}" alt="" class="img-responsive">#}
                             </div>
+                        {% else %}
+                            <h1>NO IMAGE</h1>
                         {% endif %}
 
                     </div>

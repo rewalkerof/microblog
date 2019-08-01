@@ -8,12 +8,13 @@ from .models import Post
 
 
 def post_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    # if not request.user.is_staff or not request.user.is_superuser:
+    #     raise Http404
     storage = messages.get_messages(request)
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.user = request.user
         instance.save()
         messages.success(request, 'Post successfully created!')
         return redirect(instance.get_absolute_url())
@@ -28,8 +29,8 @@ def post_create(request):
 
 
 def post_detail(request, id=None):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    # if not request.user.is_staff or not request.user.is_superuser:
+    #     raise Http404
     instance = get_object_or_404(Post, id=id)
     context = {
         'instance': instance,
@@ -39,8 +40,8 @@ def post_detail(request, id=None):
 
 
 def post_list(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    # if not request.user.is_staff or not request.user.is_superuser:
+    #     raise Http404
     list_queryset = Post.objects.all()
     paginator = Paginator(list_queryset, 6)
     page = request.GET.get('page')
@@ -78,6 +79,8 @@ def post_edit(request, id=None):
 
 
 def post_delete(request, id=None):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     instance = get_object_or_404(Post, id=id)
     instance.delete()
     messages.info(request, 'Post succesfully deleted')
