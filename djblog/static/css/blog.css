@@ -4,7 +4,7 @@
 }
 
 .navbar-blog a {
-    font-size: 17px;
+    font-size: 18px;
     border-bottom: 2px solid transparent;
 }
 
@@ -38,3 +38,8 @@
     background-color: #F7F7F7;
     border: 1px solid #DDD;
 }
+
+/*#navbarText ul li:last-child {*/
+/*    float: right;*/
+/*}*/
+
