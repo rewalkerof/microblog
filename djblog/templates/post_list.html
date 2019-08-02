@@ -35,7 +35,7 @@
                                 <small>{{ obj.timestamp|timesince }} ago</small>
                             </div>
                         </div>
-                        <p>{{ obj.content| linebreaksbr| safe }}</p>
+                        {{ obj.content }}
                         <div class="row mt-5">
                             <p class="col-auto mr-auto"><a href="{% url 'posts:delete' id=obj.id %}"
                                                            class="btn btn-danger" role="button">Delete

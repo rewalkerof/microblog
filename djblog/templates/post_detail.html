@@ -8,11 +8,12 @@
         <p><b>Author: </b> {{ instance.get_full_name | default:instance.user.username }}</p>
     {% endif %}
     <small>{{ instance.timestamp }}</small>
-    </h1>
     {% if instance.image %}
         <p><img src="{{ instance.image.url }}" alt="" class="img-responsive"></p>
     {% endif %}
-    <p>{{ instance.content }}</p>
+    <div class="col col-lg-12 content-markdown">
+        <p>{{ instance.content }}</p>
+    </div>
     <a href="{{ instance.get_absolute_url }}">Return</a>
     <button type="button" class="btn btn-primary">Primary</button>
 {% endblock content %}
