@@ -83,7 +83,7 @@ def post_edit(request, id=None):
     else:
         messages.success(request, 'Not successfully edited!')
     context = {
-        'title': instance.title,
+        'title': 'Edit post',
         'instance': instance,
         'form': form
     }

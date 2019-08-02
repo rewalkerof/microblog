@@ -35,8 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third party
+    'reset_migrations',
+    'crispy_forms',
+    # local apps
     'posts.apps.PostsConfig',
-    'reset_migrations'
+
 ]
 
 MIDDLEWARE = [
@@ -128,3 +132,5 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 
 LOGIN_URL = 'admin/logout'
 LOGIN_REDIRECT_URL = '/admin/login/?next=/admin/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
