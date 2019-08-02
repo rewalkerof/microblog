@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -29,9 +30,11 @@ def post_create(request):
 
 
 def post_detail(request, id=None):
-    # if not request.user.is_staff or not request.user.is_superuser:
-    #     raise Http404
     instance = get_object_or_404(Post, id=id)
+    if instance.draft:
+        if not request.user.is_staff or not request.user.is_superuser:
+            raise Http404
+
     context = {
         'instance': instance,
         'title': 'Detail'
@@ -40,10 +43,19 @@ def post_detail(request, id=None):
 
 
 def post_list(request):
-    # if not request.user.is_staff or not request.user.is_superuser:
-    #     raise Http404
-    list_queryset = Post.objects.all()
-    paginator = Paginator(list_queryset, 6)
+    list_queryset = Post.active.all()
+    if request.user.is_staff or request.user.is_superuser:
+        list_queryset = Post.objects.all()
+
+    query = request.GET.get('query')
+    if query:
+        list_queryset = list_queryset.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(user__first_name__icontains=query) |
+            Q(user__last_name__icontains=query)
+        ).distinct()
+    paginator = Paginator(list_queryset, 4)
     page = request.GET.get('page')
     try:
         lists = paginator.page(page)

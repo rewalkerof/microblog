@@ -12,6 +12,11 @@ def get_full_name(request):
     return f'{instance.email}\n{instance.first_name} {instance.last_name}'
 
 
+class ActivePostManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(draft=False)
+
+
 class Post(models.Model):
     title = models.CharField(max_length=50)
     image = models.ImageField(upload_to=upload_location,
@@ -22,8 +27,12 @@ class Post(models.Model):
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
     content = models.TextField()
+    draft = models.BooleanField(default=False, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
+    objects = models.Manager()
+    active = ActivePostManager()
 
     def get_full_name(self):
         instance = self.user

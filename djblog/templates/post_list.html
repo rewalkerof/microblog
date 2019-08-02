@@ -2,6 +2,12 @@
 
 {% block content %}
     <h1 class="modal-title title-blog">{{ title }}</h1>
+    <form action="" method="GET">
+        {#        {% csrf_token %}#}
+        <input type="text" placeholder="Search posts" name="query"/>
+        <input type="submit" value="Search"/>
+    </form>
+    <br>
     {#    <div class="row">#}
     {#        <div class="col-12 col-lg-8 border">.col-12 .col-md-8</div>#}
     {#        <div class="col-6 col-lg-4 border">.col-6 .col-md-4</div>#}
@@ -15,9 +21,14 @@
                             <div class="col-6 col-lg-8">
                                 <h3><a href="{% url 'posts:detail' obj.id %}"
                                        class="subtitle-blog">{{ obj.title }}</a></h3>
+                                {% if obj.draft %}
+                                    <h5><i>Drafted</i></h5>
+                                {% endif %}
                                 {% if obj.user %}
                                     <p><b>Author: </b> {{ obj.get_full_name | default:obj.user.username }}</p>
+
                                 {% endif %}
+
                             </div>
 
                             <div class="col-4 ml-auto  ">
@@ -38,7 +49,7 @@
                     <div class="col col-lg-6 border">
                         {% if obj.image %}
                             <div class="row">
-{#                                <img src="{{ obj.image.url }}" alt="" class="img-responsive">#}
+                                {#                                <img src="{{ obj.image.url }}" alt="" class="img-responsive">#}
                             </div>
                         {% else %}
                             <h1>NO IMAGE</h1>
@@ -52,7 +63,7 @@
             <div class="pagination">
             <span class="step-links">
                 {% if object_list.has_previous %}
-                    <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                    <a href="?page={{ object_list.previous_page_number }}&q={{ request.GET.query }}">previous</a>
                 {% endif %}
 
                 <span class="current">
@@ -60,7 +71,7 @@
                 </span>
 
                 {% if object_list.has_next %}
-                    <a href="?page={{ object_list.next_page_number }}">next</a>
+                    <a href="?page={{ object_list.next_page_number }}&q={{ request.GET.query }}">next</a>
                 {% endif %}
             </span>
             </div>
