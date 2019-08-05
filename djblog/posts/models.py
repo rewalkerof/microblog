@@ -46,6 +46,6 @@ class Post(models.Model):
 
     class Meta:
         db_table = 'post'
-        verbose_name = 'Пост'
-        verbose_name_plural = 'Посты'
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
         ordering = ['-timestamp']

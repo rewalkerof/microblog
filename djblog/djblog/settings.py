@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     # local apps
     'posts.apps.PostsConfig',
+    'comments.apps.CommentsConfig',
+
 
 ]
 

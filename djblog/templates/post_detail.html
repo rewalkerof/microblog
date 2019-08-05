@@ -13,11 +13,14 @@
                     {% endif %}
                     <small>{{ instance.timestamp }}</small>
 
-                    <div class="col col-lg-12 content-markdown">
+                    <div class="col col-lg-12">
                         <p>{{ instance.content }}</p>
                     </div>
-                    <a href="{{ instance.get_absolute_url }}">Return</a>
-                    <button type="button" class="btn btn-primary">Primary</button>
+                    <div class="row mt-5">
+                        <p class="col-auto mr-auto"><a href="{{ instance.get_absolute_url }}"
+                                                       class="btn btn-dark" role="button">Return</a></p>
+                        </p>
+                    </div>
                 </div>
                 <div class="col col-lg-4">
                     {% if instance.image %}
@@ -25,8 +28,25 @@
                     {% endif %}
                 </div>
             </div>
+            <div class="row">
+                <div class="col col-lg-6 mx-auto">
+                    <h1 class="lead">Comments</h1>
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div>
+                                {{ comment.content }}
+                                <br>
+                                <b>Author: </b>{{ comment.user }}
+                                <small>{{ comment.timestamp }}</small>
+                                <hr>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h1>No one comments</h1>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    </div>
     </div>
     </div>
 {% endblock content %}
