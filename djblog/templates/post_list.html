@@ -2,12 +2,12 @@
 
 {% block content %}
     <div class="row">
-        <div class="col col-lg-12">
+        <div class="col-12 col-lg-10 mx-auto">
             <div class="row">
-                <div class="col col-4 ">
+                <div class="col-8 col-lg-6">
                     <h1 class="modal-title title-blog">{{ title }}</h1>
                 </div>
-                <div class="col col-6 align-self-center ml-auto">
+                <div class="col-12 col-lg-6 align-self-center ml-auto">
                     <form action="" method="GET">
                         <div class="input-group">
                             <input class="form-control w100 mr-3" type="text" placeholder="Search post.."
@@ -19,72 +19,54 @@
                     </form>
                 </div>
             </div>
-            <br>
+
             {% for obj in  object_list %}
-                <div class="row">
-                    <div class="col-lg-6 ">
-                        <div class="row">
-                            <div class="col-6 col-lg-8">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-block col-12 col-lg-7 px-4">
+                            <div class="card-body">
                                 <h3><a href="{% url 'posts:detail' obj.id %}"
                                        class="subtitle-blog">{{ obj.title }}</a></h3>
                                 {% if obj.draft %}
                                     <h5><i>Drafted</i></h5>
                                 {% endif %}
+
                                 {% if obj.user %}
                                     <p><b>Author: </b> {{ obj.get_full_name | default:obj.user.username }}</p>
                                 {% endif %}
 
-                            </div>
+                                <div class="col-4 ml-auto  ">
+                                    <small>{{ obj.timestamp|timesince }} ago</small>
+                                </div>
 
-                            <div class="col-4 ml-auto  ">
-                                <small>{{ obj.timestamp|timesince }} ago</small>
+                                <p class="card-text">{{ obj.content }}</p>
+
+                                <div class="row">
+                                    <p class="mr-auto px-3"><a href="{% url 'posts:delete' id=obj.id %}"
+                                                               class="btn btn-danger" role="button">Delete
+                                        post</a></p>
+                                    <p><a href="{% url 'posts:edit' id=obj.id %}"
+                                          class="btn bg-secondary text-light">Edit
+                                        post</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        {{ obj.content }}
-                        <div class="row mt-5">
-                            <p class="col-auto mr-auto"><a href="{% url 'posts:delete' id=obj.id %}"
-                                                           class="btn btn-danger" role="button">Delete
-                                post</a></p>
-                            <p class="col-auto"><a href="{% url 'posts:edit' id=obj.id %}"
-                                                   class="btn bg-secondary text-light col-lg-offset-5">Edit
-                                post</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col col-lg-6">
-                        {% if obj.image %}
-                            <div class="row">
-                                {#                                <img src="{{ obj.image.url }}" alt="" class="img-responsive">#}
-                            </div>
-                        {% else %}
-                            <h1>NO IMAGE</h1>
-                        {% endif %}
 
+                        <div class="card-block col-12 col-lg-5 border ">
+                            {% if obj.image %}
+                                <div class="row">
+                                    <img src="{{ obj.image.url }}" alt="" class="img-responsive">
+                                </div>
+                            {% else %}
+                                <h1>NO IMAGE</h1>
+                            {% endif %}
+                        </div>
+                        {#                    {% cycle "" "<div class='col-lg-12'><hr/></div></div><div class='row'>" %}#}
                     </div>
                 </div>
-
-                {#            {% cycle "" "<div class='col-lg-12'><hr/></div></div><div class='row'>" %}#}
-                <hr>
-                <br>
-                <br>
-                <br>
-
             {% endfor %}
-            <div class="pagination">
-            <span class="step-links">
-                {% if object_list.has_previous %}
-                    <a href="?page={{ object_list.previous_page_number }}&q={{ request.GET.query }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-                </span>
-
-                {% if object_list.has_next %}
-                    <a href="?page={{ object_list.next_page_number }}&q={{ request.GET.query }}">next</a>
-                {% endif %}
-            </span>
-            </div>
+            {% include 'pagination.html' %}
         </div>
     </div>
 {% endblock content %}
