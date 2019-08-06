@@ -53,6 +53,7 @@ def post_detail(request, id=None):
         new_comment, created = Comment.objects.get_or_create(user=request.user, content_type=content_type,
                                                              object_id=obj_id, content=content_data)
         return redirect(instance.get_success_url())
+
     comments = instance.comments
 
     context = {

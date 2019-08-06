@@ -15,7 +15,6 @@ class CommentManager(models.Manager):
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
-    # posts = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField(default=1)

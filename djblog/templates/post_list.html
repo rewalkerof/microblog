@@ -22,7 +22,7 @@
             <br>
             {% for obj in  object_list %}
                 <div class="row">
-                    <div class="col-lg-6 border">
+                    <div class="col-lg-6 ">
                         <div class="row">
                             <div class="col-6 col-lg-8">
                                 <h3><a href="{% url 'posts:detail' obj.id %}"
@@ -51,7 +51,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col col-lg-6 border">
+                    <div class="col col-lg-6">
                         {% if obj.image %}
                             <div class="row">
                                 {#                                <img src="{{ obj.image.url }}" alt="" class="img-responsive">#}
@@ -64,6 +64,11 @@
                 </div>
 
                 {#            {% cycle "" "<div class='col-lg-12'><hr/></div></div><div class='row'>" %}#}
+                <hr>
+                <br>
+                <br>
+                <br>
+
             {% endfor %}
             <div class="pagination">
             <span class="step-links">
