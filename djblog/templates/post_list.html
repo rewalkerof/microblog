@@ -23,37 +23,45 @@
             {% for obj in  object_list %}
                 <div class="card">
                     <div class="row">
-                        <div class="card-block col-12 col-lg-7 px-4">
+                        <div class="card-block col-12 col-lg-7">
                             <div class="card-body">
                                 <h3><a href="{% url 'posts:detail' obj.id %}"
                                        class="subtitle-blog">{{ obj.title }}</a></h3>
                                 {% if obj.draft %}
-                                    <h5><i>Drafted</i></h5>
+                                    <h5 class="text-danger"><i>Drafted</i></h5>
                                 {% endif %}
 
-                                {% if obj.user %}
-                                    <p><b>Author: </b> {{ obj.get_full_name | default:obj.user.username }}</p>
-                                {% endif %}
+                                <div class="overflow-hidden">
+                                    {% if obj.user %}
+                                        <p class="float-left"><i>
+                                            {{ obj.get_full_name | default:obj.user.username }}</i></p>
+                                        <p class="float-right"><small><i>{{ obj.timestamp|timesince }}
+                                            ago</i></small></p>
+                                    {% endif %}
 
-                                <div class="col-4 ml-auto  ">
-                                    <small>{{ obj.timestamp|timesince }} ago</small>
                                 </div>
 
-                                <p class="card-text">{{ obj.content }}</p>
 
+                                <p class="card-text">{{ obj.content|linebreaksbr }}</p>
                                 <div class="row">
-                                    <p class="mr-auto px-3"><a href="{% url 'posts:delete' id=obj.id %}"
-                                                               class="btn btn-danger" role="button">Delete
-                                        post</a></p>
-                                    <p><a href="{% url 'posts:edit' id=obj.id %}"
-                                          class="btn bg-secondary text-light">Edit
-                                        post</a>
-                                    </p>
+                                    {% if request.user.is_superuser%}
+                                        <p class="mr-auto px-3"><a href="{% url 'posts:delete' id=obj.id %}"
+                                                                   class="btn btn-danger" role="button">Delete
+                                            post</a></p>
+                                        <p><a href="{% url 'posts:edit' id=obj.id %}"
+                                              class="btn bg-secondary text-light">Edit
+                                            post</a>
+                                        </p>
+                                    {% else %}
+                                        <p class="ml-auto"><a href="{% url 'posts:detail' obj.id %}"
+                                              class="btn btn-dark">Read post</a>
+                                        </p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card-block col-12 col-lg-5 border ">
+                        <div class="card-block col-12 col-lg-4 m-4 p-4 border">
                             {% if obj.image %}
                                 <div class="row">
                                     <img src="{{ obj.image.url }}" alt="" class="img-responsive">
@@ -65,6 +73,7 @@
                         {#                    {% cycle "" "<div class='col-lg-12'><hr/></div></div><div class='row'>" %}#}
                     </div>
                 </div>
+                <br>
             {% endfor %}
             {% include 'pagination.html' %}
         </div>
