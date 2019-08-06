@@ -2,6 +2,10 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
+from django.contrib.contenttypes.models import ContentType
+
+from comments.models import Comment
+
 
 def upload_location(instance, filename):
     return f'images/{instance}/{filename}'
@@ -44,8 +48,24 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('posts:list')
 
+    def get_success_url(self):
+        return reverse('posts:detail', kwargs={'id': self.id})
+
     class Meta:
         db_table = 'post'
+        app_label = 'posts'
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         ordering = ['-timestamp']
+
+    @property
+    def comments(self):
+        instance = self
+        qs = Comment.objects.filter_by_instance(instance)
+        return qs
+
+    @property
+    def get_content_type(self):
+        instance = self
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        return content_type
