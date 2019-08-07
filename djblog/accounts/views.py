@@ -26,9 +26,11 @@ def account_login(request):
     }
     return render(request, 'accounts/login.html', context)
 
+
 # def account_register(request):
 #     return render(request)
 #
-#
-# def account_logout(request):
-#     return render(request)
+
+def account_logout(request):
+    logout(request)
+    return redirect('posts:list')

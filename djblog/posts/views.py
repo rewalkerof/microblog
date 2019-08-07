@@ -29,7 +29,7 @@ def post_create(request):
         'title': 'Create post',
         'messages': storage
     }
-    return render(request, 'post_form.html', context)
+    return render(request, 'posts/post_form.html', context)
 
 
 def post_detail(request, id=None):
@@ -61,7 +61,7 @@ def post_detail(request, id=None):
         'comments': comments,
         'comment_form': form,
     }
-    return render(request, 'post_detail.html', context)
+    return render(request, 'posts/post_detail.html', context)
 
 
 def post_list(request):
@@ -90,7 +90,7 @@ def post_list(request):
         'object_list': lists,
         'title': 'List of posts'
     }
-    return render(request, 'post_list.html', context)
+    return render(request, 'posts/post_list.html', context)
 
 
 def post_edit(request, id=None):
@@ -109,7 +109,7 @@ def post_edit(request, id=None):
         'instance': instance,
         'form': form
     }
-    return render(request, 'post_form.html', context)
+    return render(request, 'posts/post_form.html', context)
 
 
 def post_delete(request, id=None):
