@@ -40,7 +40,10 @@ class Post(models.Model):
 
     def get_full_name(self):
         instance = self.user
-        return f'{instance.first_name} {instance.last_name}'
+        if instance.first_name and instance.last_name:
+            return f'{instance.first_name} {instance.last_name}'
+        else:
+            return None
 
     def __str__(self):
         return self.title

@@ -38,13 +38,12 @@
                                         <p class="float-right"><small><i>{{ obj.timestamp|timesince }}
                                             ago</i></small></p>
                                     {% endif %}
-
                                 </div>
 
 
                                 <p class="card-text">{{ obj.content|linebreaksbr }}</p>
                                 <div class="row">
-                                    {% if request.user.is_superuser%}
+                                    {% if request.user.is_superuser %}
                                         <p class="mr-auto px-3"><a href="{% url 'posts:delete' id=obj.id %}"
                                                                    class="btn btn-danger" role="button">Delete
                                             post</a></p>
@@ -54,7 +53,7 @@
                                         </p>
                                     {% else %}
                                         <p class="ml-auto"><a href="{% url 'posts:detail' obj.id %}"
-                                              class="btn btn-dark">Read post</a>
+                                                              class="btn btn-dark">Read post</a>
                                         </p>
                                     {% endif %}
                                 </div>
