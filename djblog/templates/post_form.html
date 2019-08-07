@@ -4,14 +4,31 @@
 
 {% block content %}
     <div class="row">
-        <div class="col col-lg-6 mr-auto">
+        <div class="col-12 col-lg-10 mx-auto">
             <h1 class="modal-title title-blog">{{ title }}</h1>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button class="btn btn-success">Create</button>
-                <a href="{% url 'posts:list' %}" class="btn btn-default">Cancel</a>
-            </form>
+            <div class="card">
+                <div class="row">
+                    <div class="card-block col-12 p-4 mx-4">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-10 col-lg-6 mb-0">
+                                    {{ form.title|as_crispy_field }}
+                                    {{ form.content|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-10 col-lg-4 offset-lg-1 mb-0 ">
+                                    {{ form.image|as_crispy_field }}
+                                    {{ form.draft|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-lg-6 mb-0">
+                                    <button class="btn btn-success">Create</button>
+                                    <a href="{% url 'posts:list' %}" class="btn btn-default">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}
