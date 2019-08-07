@@ -43,3 +43,7 @@
 /*    float: right;*/
 /*}*/
 
+/*hidden * label on form*/
+.asteriskField {
+    display: none;
+}

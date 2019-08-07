@@ -7,7 +7,7 @@ from .models import Post
 class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
-        self.fields['title'].label = 'Title'
+        self.fields['title'].label = 'Titles'
         self.fields['draft'].label = 'Draft?'
         self.fields['content'].label = 'Content of post'
 
