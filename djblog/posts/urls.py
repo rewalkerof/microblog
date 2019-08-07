@@ -8,7 +8,6 @@ admin.site.index_title = 'Тот еще секс'
 
 app_name = 'posts'
 urlpatterns = [
-
     path('', post_list, name="list"),
     path('create/', post_create, name="create"),
     path('<int:id>/detail', post_detail, name="detail"),

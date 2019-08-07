@@ -23,11 +23,15 @@ class ActivePostManager(models.Manager):
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
-    image = models.ImageField(upload_to=upload_location,
-                              null=True, blank=True,
-                              width_field="width_field",
-                              height_field="height_field")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to=upload_location,
+        null=True, blank=True,
+        width_field="width_field",
+        height_field="height_field")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        default=1,
+        on_delete=models.CASCADE)
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
     content = models.TextField()
@@ -38,12 +42,12 @@ class Post(models.Model):
     objects = models.Manager()
     active = ActivePostManager()
 
-    def get_full_name(self):
-        instance = self.user
-        if instance.first_name and instance.last_name:
-            return f'{instance.first_name} {instance.last_name}'
-        else:
-            return None
+    class Meta:
+        db_table = 'post'
+        app_label = 'posts'
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
+        ordering = ['-timestamp']
 
     def __str__(self):
         return self.title
@@ -52,14 +56,14 @@ class Post(models.Model):
         return reverse('posts:list')
 
     def get_success_url(self):
-        return reverse('posts:detail', kwargs={'id': self.id})
+        return reverse('posts:detail', args=[str(self.id)])
 
-    class Meta:
-        db_table = 'post'
-        app_label = 'posts'
-        verbose_name = 'Post'
-        verbose_name_plural = 'Posts'
-        ordering = ['-timestamp']
+    def get_full_name(self):
+        instance = self.user
+        if instance.first_name and instance.last_name:
+            return f'{instance.first_name} {instance.last_name}'
+        else:
+            return None
 
     @property
     def comments(self):

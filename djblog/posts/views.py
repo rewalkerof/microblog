@@ -45,7 +45,6 @@ def post_detail(request, id=None):
 
     form = CommentForm(request.POST or None, initial=initial_data)
     if form.is_valid():
-        print(form.cleaned_data)
         c_type = form.cleaned_data.get('content_type')
         content_type = ContentType.objects.get(model=c_type.lower())
         obj_id = form.cleaned_data.get('object_id')

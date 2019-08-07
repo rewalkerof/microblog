@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # local apps
     'posts.apps.PostsConfig',
     'comments.apps.CommentsConfig',
-
+    'accounts.apps.AccountsConfig',
 
 ]
 
@@ -133,6 +133,6 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles')
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 
 LOGIN_URL = 'admin/logout'
-LOGIN_REDIRECT_URL = '/admin/login/?next=/admin/'
+LOGIN_REDIRECT_URL = '/accounts/login/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

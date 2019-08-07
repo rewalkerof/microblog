@@ -25,11 +25,11 @@ class Comment(models.Model):
 
     objects = CommentManager()
 
-    def __str__(self):
-        return self.content[:100]
-
     class Meta:
         db_table = 'comment'
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
         ordering = ['-timestamp']
+
+    def __str__(self):
+        return self.content[:100]

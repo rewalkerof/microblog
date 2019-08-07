@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-10 col-lg-4 mx-auto ">
+            <h1 class="modal-title title-blog text-center">{{ title }}</h1>
+            <div class="card rounded shadow">
+                <div class="row offset-lg-1 mr-auto">
+                    <div class="card-block">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group">
+                                    {{ form|crispy }}
+                                    <button class="btn btn-secondary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -23,10 +23,13 @@ admin.site.site_header = 'Тот еще секс'
 admin.site.site_title = 'Тот еще секс'
 admin.site.index_title = 'Тот еще секс'
 
+from accounts.views import account_login
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('posts/', include('posts.urls', namespace='posts')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
 if settings.DEBUG:
