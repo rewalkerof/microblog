@@ -19,17 +19,17 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from django.contrib import admin
 
-admin.site.site_header = 'Тот еще секс'
-admin.site.site_title = 'Тот еще секс'
-admin.site.index_title = 'Тот еще секс'
+admin.site.site_header = 'vBLOG'
+admin.site.site_title = 'vBLOG'
+admin.site.index_title = 'vBLOG'
 
-from accounts.views import account_login
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('posts/', include('posts.urls', namespace='posts')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('api/posts/', include('posts.api.urls', namespace='posts-api'))
 ]
 
 if settings.DEBUG:
