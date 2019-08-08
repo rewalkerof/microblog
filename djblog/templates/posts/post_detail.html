@@ -69,11 +69,15 @@
             {#            COMMENT#}
             <div class="col col-lg-6 mx-auto my-4">
                 <h1 class="lead">Comments</h1>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ comment_form|crispy }}
-                    <input type="submit" value="Post comment" class="btn btn-secondary">
-                </form>
+                {% if request.user.is_authenticated %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ comment_form|crispy }}
+                        <input type="submit" value="Post comment" class="btn btn-secondary">
+                    </form>
+                {% else %}
+                    <h5 class="card-title text-danger">If you want publish commit you need to log in</h5>
+                {% endif %}
                 <hr>
                 {% for comment in comments %}
                     <blockquote class="blockquote">

@@ -4,22 +4,20 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-10 col-lg-4 mx-auto ">
+        <div class="col-10 col-lg-5 mx-auto ">
             <h1 class="modal-title title-blog text-center">{{ title }}</h1>
             <div class="card rounded shadow">
                 <div class="row offset-lg-1 mr-auto">
                     <div class="card-block">
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <div class="form-row">
+                            <div class="form-row my-4">
                                 <div class="form-group">
-                                    {{ form|crispy }}
+                                    {{ form.username|as_crispy_field }}
+                                    {{ form.email|as_crispy_field }}
+                                    {{ form.password|as_crispy_field }}
+                                    {{ form.password_confirm|as_crispy_field }}
                                     <button class="btn btn-secondary">Submit</button>
-                                    <h5 class="card-text">Don’t have an account? <a
-                                            href="{% url 'accounts:register' %}">Sign
-                                        up</a></h5>
-                                    <h6 class="card-text ml-auto"><a
-                                            href="{% url 'accounts:register' %}">Forgot a password?</a></h6>
                                 </div>
                             </div>
                         </form>

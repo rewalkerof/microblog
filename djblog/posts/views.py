@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import Http404, HttpResponseRedirect
@@ -44,6 +45,10 @@ def post_detail(request, id=None):
     }
 
     form = CommentForm(request.POST or None, initial=initial_data)
+    # auth = request.user.is_authenticated
+    # if not auth:
+    #     messages.warning(request, 'You need to log in!')
+    #     return redirect('accounts:login')
     if form.is_valid():
         c_type = form.cleaned_data.get('content_type')
         content_type = ContentType.objects.get(model=c_type.lower())
@@ -93,6 +98,7 @@ def post_list(request):
     return render(request, 'posts/post_list.html', context)
 
 
+@login_required(login_url='accounts:login')
 def post_edit(request, id=None):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
@@ -112,6 +118,7 @@ def post_edit(request, id=None):
     return render(request, 'posts/post_form.html', context)
 
 
+@login_required
 def post_delete(request, id=None):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404

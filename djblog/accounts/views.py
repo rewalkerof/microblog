@@ -5,10 +5,7 @@ from django.contrib.auth import (
 )
 from django.shortcuts import render, redirect
 
-# Create your views here.
-from django.urls import reverse
-
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserRegisterForm
 
 
 def account_login(request):
@@ -27,10 +24,25 @@ def account_login(request):
     return render(request, 'accounts/login.html', context)
 
 
-# def account_register(request):
-#     return render(request)
-#
+def account_register(request):
+    form = UserRegisterForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        username = form.cleaned_data.get('username')
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password')
+        user.set_password(password)
+        user.save()
+        new_user = authenticate(username=user.username, password=password)
+        login(request, new_user)
+        return redirect('posts:list')
+    context = {
+        'title': 'Register',
+        'form': form,
+    }
+    return render(request, 'accounts/register.html', context)
+
 
 def account_logout(request):
     logout(request)
-    return redirect('posts:list')
+    return redirect('accounts:login')
