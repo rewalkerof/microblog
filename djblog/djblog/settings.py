@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # third party
     'reset_migrations',
     'crispy_forms',
+    'rest_framework',
     # local apps
     'posts.apps.PostsConfig',
     'comments.apps.CommentsConfig',
