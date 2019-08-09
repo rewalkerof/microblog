@@ -10,6 +10,7 @@ from rest_framework.generics import (
     DestroyAPIView,
     CreateAPIView,
 )
+from .pagination import StandardResultsSetPagination
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -37,7 +38,7 @@ class PostCreateAPIView(CreateAPIView):
 class PostListAPIView(ListAPIView):
     serializer_class = PostListSerializer
     queryset = Post.objects.all()
-
+    pagination_class = StandardResultsSetPagination
     filter_backends = [SearchFilter]
     search_fields = ['title', 'user__username']
 
