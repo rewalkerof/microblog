@@ -12,6 +12,9 @@ class PostCreateUpdateSerializer(ModelSerializer):
             'user',
         ]
 
+    def create(self, validated_data):
+        return Post.objects.create(**validated_data)
+
 
 class PostDetailSerializer(ModelSerializer):
     class Meta:
