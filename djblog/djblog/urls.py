@@ -23,13 +23,13 @@ admin.site.site_header = 'vBLOG'
 admin.site.site_title = 'vBLOG'
 admin.site.index_title = 'vBLOG'
 
-
 urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('posts/', include('posts.urls', namespace='posts')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('api/posts/', include('posts.api.urls', namespace='posts-api'))
+    path('api/posts/', include('posts.api.urls', namespace='posts-api')),
+    path('api/comments/', include('comments.api.urls', namespace='comments-api')),
 ]
 
 if settings.DEBUG:

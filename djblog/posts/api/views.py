@@ -40,7 +40,7 @@ class PostListAPIView(ListAPIView):
     queryset = Post.objects.all()
     pagination_class = StandardResultsSetPagination
     filter_backends = [SearchFilter]
-    search_fields = ['title', 'user__username']
+    search_fields = ['^title', '=user__username']
 
     # def get_queryset(self, *args, **kwargs):
     #     queryset = super(PostListAPIView, self).get_queryset()

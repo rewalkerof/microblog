@@ -1,5 +1,12 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import (
+    ModelSerializer,
+    SerializerMethodField,
+    HyperlinkedModelSerializer,
+    HyperlinkedIdentityField,
+)
 
+from comments.api.serializers import CommentSerializer
+# from models import Comment
 from posts.models import Post
 
 
@@ -17,18 +24,50 @@ class PostCreateUpdateSerializer(ModelSerializer):
 
 
 class PostDetailSerializer(ModelSerializer):
+    # comments = SerializerMethodField()
+
     class Meta:
         model = Post
         fields = [
-            'id',
             'title',
             'content',
-            'user',
             'timestamp',
+            'image',
+            # 'comments',
         ]
 
+    def get_image(self, obj):
+        return obj.image.path
 
-class PostListSerializer(ModelSerializer):
+    # def get_comments(self, obj):
+    #     content_type = obj.get_content_type
+    #     obj_id = obj.id
+    #     qs = Comment.objects.filter_by_instance(obj)
+    #     comments = CommentSerializer(qs, many=True).data
+    #     return comments
+
+
+class PostListSerializer(HyperlinkedModelSerializer):
+    url = HyperlinkedIdentityField(
+        view_name='posts-api:detail',
+        lookup_field='id',
+    )
+
+    deleter = HyperlinkedIdentityField(
+        view_name='posts-api:delete',
+        lookup_field='id'
+    )
+    username = SerializerMethodField()
+
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = [
+            'url',
+            'title',
+            'username',
+            'timestamp',
+            'deleter',
+        ]
+
+    def get_username(self, obj):
+        return obj.user.username
