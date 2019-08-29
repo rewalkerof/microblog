@@ -51,3 +51,5 @@ GRANT ALL PRIVILEGES ON DATABASE blog TO python_dev;
 ```
 \q
 ```
+#### Heroku
+git push heroku blog-with-api:master
