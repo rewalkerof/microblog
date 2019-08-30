@@ -1,1 +1,1 @@
-web: gunicorn djblog.djblog.wsgi --log-file -
+web: python djblog/manage.py runserver 0.0.0.0:$PORT --noreload
